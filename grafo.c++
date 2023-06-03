@@ -7,64 +7,64 @@ private:
     int id;
 
 public:
-    Vertice(int id
-            : id(id)) {}
-    int getID() const
+    Vertice(int id) : id(id) {}
+    int getID()
     {
-        return this.id;
+        return id;
     }
 };
 
 class Aresta
 {
 private:
-    Vertice u;
+    Vertice *u;
 
 private:
-    Vertice v;
+    Vertice *v;
 
 public:
-    Aresta(Vertice u, Vertice v
-           : u(u), v(v)) {}
+    Aresta(Vertice *u, Vertice *v) : u(u), v(v) {}
 
-    Vertice int getU() const {
-        return u}
-
-    Vertice int getV() const
+    Vertice *getU() const
     {
-        return v
+        return u;
+    };
+
+    Vertice *getV() const
+    {
+        return v;
     }
-}
+};
 
-class grafo()
+class Grafo
 {
-    vector<Vertice> vertices; // vetor de vertice
-    vector<Aresta> arestas;   // vetor de aresta
-    grafo()
+private:
+    vector<Vertice *> vertices;
+    vector<Aresta *> arestas;
+
+public:
+    ~Grafo()
     {
-        // destructor de classe(desalocação de memoria)
-        ~Grafo()
+        // Liberar a memória alocada para vértices e arestas
+        for (Vertice *v : vertices)
         {
-            for (Vertice v : vertices)
-            { // desalocando os v enquanto existir v no Vetor
-                delete v
-            }
-            for (Aresta a : arestas)
-            { // desalocando os a enquanto existir a no Vetor
-                delete a
-            }
+            delete v;
+        }
+        for (Aresta *a : arestas)
+        {
+            delete a;
         }
     }
-    Vertice adicionarVertice(int id)
+    Vertice *adicionarVertice(int id)
     {
-        Vertice novoVertice = new Vertice(id)                  // novo objeto de vertice
-                              vertices.push_back(novoVertice); // ponteiro para o novo vertice, inserindo esse novo vertice ao fim do grafo
+        Vertice *novoVertice = new Vertice(id);
+        vertices.push_back(novoVertice);
         return novoVertice;
     }
-    void adicionarAresta(Vertice u, Vertice v)
-    {                                                         // passando nosso par de vertice como parametro
-        Aresta novaAresta = new Aresta(Vertice u, Vertice V); // nova aresta criada com os vertices passados como parametro no metodo, ou seja, inserindo aresta no nosso par de vertice
-        arestas.push_back(novaAresta);                        // ponteiro para a nova aresta atraves do push_back, ou seja inserindo aresta ao final do vertor de aresta do grafo
+    void adicionarAresta(Vertice *u, Vertice *v)
+    {
+        Aresta *novaAresta = new Aresta(u, v);
+        arestas.push_back(novaAresta);
     }
     void exibirVertices() const
     {
@@ -75,13 +75,12 @@ class grafo()
     }
     void exibirArestas() const
     {
-        // usei getId como nome e passei o id no vertice pra servir de indentificador do vertice
         for (Aresta *a : arestas)
         {
             cout << "Aresta: " << a->getU()->getID() << " -> " << a->getV()->getID() << endl;
         }
     }
-}
+};
 
 int main()
 {
